@@ -6,6 +6,7 @@
 .Ruserdata
 
 docs/site/
+.env
 
 # OSX Junk
 .DS_Store

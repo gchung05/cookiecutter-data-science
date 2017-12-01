@@ -3,6 +3,8 @@
 *.Rproj
 .Rhistory
 .RData
+*.RData
+*.Rdata
 .Ruserdata
 
 docs/site/

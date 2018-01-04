@@ -6,9 +6,16 @@
 *.RData
 *.Rdata
 .Ruserdata
+packrat/lib*/
 
-docs/site/
+# Python things
+.idea
+env/
+
+# General things
+/docs/site/
 .env
+/data/
 
 # OSX Junk
 .DS_Store

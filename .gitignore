@@ -1,7 +1,14 @@
 # R things
+.Rproj.user
 *.Rproj
+.Rhistory
+.RData
+*.RData
+*.Rdata
+.Ruserdata
 
 docs/site/
+.env
 
 # OSX Junk
 .DS_Store

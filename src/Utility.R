@@ -16,6 +16,7 @@ UsePackage <- function(p) {
 }
 UsePackage("lubridate")
 UsePackage("xlsx")
+UsePackage("stringr")
 
 
 # ==============================================================================
@@ -55,12 +56,12 @@ StopTimer <- function(what) {
 Message <- function(x) cat("\n", x, format(Sys.time(), "%H:%M:%S"))
 
 # Convert date to month-year (first of the month)
-To.YearMon <- function(x) {
+ToYearMon <- function(x) {
   as.Date(paste0(format(x, "%Y"), "-", format(x, "%m"), "-01"))
 }
 
 # Remove all punctuation, upcase, and trim whitespace from a string
-Remove.Punct <- function(input){
+RemovePunct <- function(input){
   str_trim(toupper(gsub("\\s+", " ", gsub("[[:punct:]]", " ", input))))
 }
 
@@ -95,6 +96,35 @@ StatsToXL <- function(grp, find){
   }
   outdf$Group <- with(outdf, ifelse(is.na(Group), "N/A", Group))
   return(outdf)
+}
+
+# Conversion from string to factor - Any Input
+# If no specified lvls, reference level is the max count
+# If lvls is length one, that is the reference
+# Otherwise lvls must be the vector of unique values in x
+StrToFactor <- function(x,
+                     lvls=NA,
+                     na_levels="missing" # Vector of values to collapse into NA
+){
+  x <- as.character(x)
+  xt <- ifelse(x %in% na_levels, NA, x)
+  if (is.na(lvls[1])){
+    relevel(factor(xt), ref=names(which.max(table(xt))))
+  } else{
+    if (length(lvls) == 1){
+      relevel(factor(xt), ref=lvls)
+    } else{
+      factor(xt, levels=lvls)
+    }
+  }
+}
+
+# Conversion from string to factor - Binary Yes/No Type Input
+BinaryYNtoFactor <- function(x){
+  x <- as.character(x)
+  xt <- ifelse(toupper(x) %in% c("YES", "Y", "1"), "Yes",
+               ifelse(toupper(x) %in% c("NO", "N", "0"), "No", NA))
+  relevel(factor(xt), ref="No")
 }
 
 

@@ -6,3 +6,6 @@ docs/site/
 # test cache
 .cache/*
 tests/__pycache__/*
+.Rproj.user
+.Rproj
+*.Rproj
